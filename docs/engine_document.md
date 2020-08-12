@@ -2,7 +2,7 @@
 
 ## Engine Factory
 Example usecase:
-```
+``` python
 config = {
     "human_detector": {
         "package": "yolo",
