@@ -47,5 +47,3 @@ class Capture(Pipeline):
         """Terminate video capture"""
         self.cap.stop()
 
-
-

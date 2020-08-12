@@ -3,7 +3,7 @@ from yacs.config import CfgNode as CN
 
 C = CN() 
 
-C.WORKING_DIR = 'Documents/HCMUS/Software_Design/Final_Project/crowd_counter'
+C.WORKING_DIR = "/Users/tienphat/Documents/HCMUS/Software_Design/Final_Project/crowd_counter"
 
 C.MODEL=CN()
 C.SOLVER=CN()

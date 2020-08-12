@@ -1,5 +1,8 @@
+import sys
+
 from .pipeline import Pipeline 
-from crowd_counter.engines import EngineFactory 
+# from crowd_counter.engines import EngineFactory 
+
 
 class Predictor(Pipeline):
     def __init__(self, model_config):
