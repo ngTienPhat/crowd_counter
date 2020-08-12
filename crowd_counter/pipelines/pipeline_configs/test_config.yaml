@@ -1,0 +1,10 @@
+MODEL:
+  TYPE: "human_detector"
+  PACKAGE: "yolo"
+  MODULE: "YoloModel"
+SOLVER:
+  BATCH_SIZE: 4
+  MAX_ITER: 10000
+DATASET:
+  TRAIN: "train_crowd"
+  TEST: "test_crowd"

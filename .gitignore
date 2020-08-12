@@ -1,3 +1,10 @@
+# MacOS dummy files
+.DS_Store
+.vscode
+# Dataset
+data
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
