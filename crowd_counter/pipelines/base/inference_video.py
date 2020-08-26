@@ -1,12 +1,13 @@
 import sys
 
 from .pipeline import Pipeline 
+from crowd_counter.engines import EngineFactory
+
 # from crowd_counter.engines import EngineFactory 
 
-#TODO: wait for engine
+#TODO: wait for engine 
 
 class Predictor(Pipeline):
-
     '''
     Create a predictor for the current task. 
     Args:
@@ -15,7 +16,6 @@ class Predictor(Pipeline):
 
     def __init__(self, model_config):
         self.engine = self._create_engine(model_config)
-        
         super().__init__()
 
     def _create_engine(self, model_config):

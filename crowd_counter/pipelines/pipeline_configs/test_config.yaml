@@ -1,10 +1,15 @@
+WORKING_DIR: ""
+
+
 MODEL:
   TYPE: "human_detector"
   PACKAGE: "yolo"
   MODULE: "YoloModel"
-SOLVER:
-  BATCH_SIZE: 4
-  MAX_ITER: 10000
+
 DATASET:
   TRAIN: "train_crowd"
   TEST: "test_crowd"
+  DATA_PATH: "/Users/tienphat/Documents/HCMUS/Software_Design/Final_Project/crowd_counter/data"
+  TEST_VIDEO: "input/video1.mp4"
+  SAVE_PATH: "output/video1.mp4"
+

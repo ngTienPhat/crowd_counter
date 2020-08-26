@@ -11,12 +11,12 @@ class FileVideoCapture(object):
     def __init__(self, src, transform=None, queue_size=128, name="FileVideoCapture", skip_frame=1):
         '''
         Args:
-
             src: video path
             transform: transform object to apply to a specific frame. None: won't do anything
             queue_size: max number of buffer to store all frames of the given video
             skip_frame: default = 1 (cap all frames)
         '''
+        
         self.cap = cv2.VideoCapture(src)
         if not self.cap.isOpened():
             raise IOError(f"Cannot open video {src}")
