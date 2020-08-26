@@ -3,7 +3,6 @@ from crowd_counter.engines import BaseEngine
 
 import torch
 import numpy as np
-import cv2
 from torchvision import transforms
 
 MODEL_CONFIG_DICTIONARY = {
@@ -63,7 +62,7 @@ class SDC_Engine(BaseEngine):
             label_indice = np.concatenate((add, label_indice))
         return label_indice
 
-    def _process(self, frame, image_size=None):
+    def _process(self, frame, image_size=(256, 256)):
         """
         Args:
             frame (PIL Image)
@@ -74,15 +73,18 @@ class SDC_Engine(BaseEngine):
             frame = frame.resize(image_size)
         frame = frame.convert("RGB")
         x = transforms.ToTensor()(frame)
-        x = x.unsqueeze(x)
+        x = x.unsqueeze(0)
 
         with torch.no_grad():
             feature_maps = self.model(x)
-            output = self.model.resample(feature_maps)
+            
+            div_res = self.model.resample(feature_maps)
+            merge_res = self.model.parse_merge(div_res)
+            outputs = merge_res["div" + str(self.model.div_times)]
 
-            masks = output["cls2"][0]
-            logit = torch.softmax(masks, dim=0)
-            heatmap = masks[0]
+            # masks = div_res["cls2"][0]
+            # logit = torch.softmax(masks, dim=0)
+            heatmap = output[0][0]
 
         # Convert back to cpu
         heatmap = heatmap.cpu().numpy()
@@ -99,6 +101,8 @@ class SDC_Engine(BaseEngine):
 
     def _get_bboxes(self, heatmap):
         # Magic go here
+        return []
+        import cv2
         contours = cv2.findContours(heatmap, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[1]
 
         bboxes = []
