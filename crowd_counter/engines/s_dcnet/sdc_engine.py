@@ -86,6 +86,12 @@ class SDC_Engine(BaseEngine):
 
         # Convert back to cpu
         heatmap = heatmap.cpu().numpy()
+
+        # Resize heatmap to original size
+        heatmap = transforms.ToPILImage()(heatmap)
+        heatmap = heatmap.resize(original_size)
+        heatmap = np.array(heatmap)
+
         bboxes = self._get_bboxes(heatmap)
 
         return bboxes, heatmap
