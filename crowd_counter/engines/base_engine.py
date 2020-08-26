@@ -1,11 +1,16 @@
 import numpy as np
 from PIL import Image
 
+import logging
+
 
 class BaseEngine(object):
     """ Base class for Engine """
 
-    def process(inputs, n_frame_skips=5):
+    def __init__(self):
+        self.logger = logging.getLogger(type(self).__name__)
+
+    def process(inputs, n_frame_skips=5, **kwargs):
         """ Main process function for Engine Class
         Args:
             
@@ -19,10 +24,10 @@ class BaseEngine(object):
         # Check if video -> Use video process
         is_video = self.check_is_video(inputs)
         if is_video:
-            return self.process_video(inputs, n_frame_skips)
+            return self.process_video(inputs, n_frame_skips, **kwargs)
 
         # Else return single frame output
-        return self._process(inputs)
+        return self._process(inputs, **kwargs)
 
     def check_is_video(self, inputs):
         """ Check if inputs is video or not """
@@ -37,13 +42,12 @@ class BaseEngine(object):
         """ Convert all know data types to Pillow Image """
         if isinstance(frames, list):
             return [self.ensure_np_array(frame) for frame in frames]
-        
+
         elif isinstance(frames, str):
             return Image.open(frames)
         elif isinstance(frames, np.ndarray):
             return Image.fromarray(frames)
         return frames
-
 
     def process_video(self, inputs, n_frame=5):
         """ Process video """
@@ -57,7 +61,7 @@ class BaseEngine(object):
         masks = [output[1] for masks in outputs]
         return bboxes, masks
 
-    def _process(self, frame):
+    def _process(self, frame, **kwargs):
         """ Process for single image file 
         Args:
             frame (pillow image)
