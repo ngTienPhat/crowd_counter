@@ -12,8 +12,8 @@ class EngineFactory(object):
         Example:
             >>> config = {
             ...    "human_detector": {
-            ...        "package": "yolo",
-            ...        "module": "YoloModel",
+            ...        "package": "crowd_counter.s_dcnet.sdc_engine",
+            ...        "module": "SDC_Engine",
             ...        "args": ["/path/to/weight.pth"],
             ...        "kwargs": {},
             ...    },

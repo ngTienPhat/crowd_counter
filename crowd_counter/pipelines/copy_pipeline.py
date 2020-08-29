@@ -1,4 +1,0 @@
-
-
-class CounterPipeline(object):
-    pass

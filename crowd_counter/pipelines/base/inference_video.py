@@ -1,11 +1,7 @@
 import sys
-
 from .pipeline import Pipeline 
 from crowd_counter.engines import EngineFactory
 
-# from crowd_counter.engines import EngineFactory 
-
-#TODO: wait for engine 
 
 class Predictor(Pipeline):
     '''
@@ -19,11 +15,13 @@ class Predictor(Pipeline):
         super().__init__()
 
     def _create_engine(self, model_config):
-        pass
+        enigne_factory = EngineFactory(model_config)
+        engine = enigne_factory.get_instance("sa_net")
     
     def map(self, data):
         frame = data['frame_data']
-        output = self.engine.process(frame) 
-        data['output'] = output
+        bboxes, heatmap = self.engine.process(frame) 
+        data['frame_bboxes'] = bboxes
+        data['frame_heatmap'] = heatmap
 
         return data
