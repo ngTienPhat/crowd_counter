@@ -1,3 +1,5 @@
+# Copy from https://github.com/ZhengPeng7/SANet-Keras
+
 import os
 import cv2
 import glob
@@ -13,8 +15,11 @@ from scipy.ndimage.filters import gaussian_filter
 from keras.layers import AveragePooling2D
 from skimage.measure import compare_psnr, compare_ssim
 
+import PIL.Image as Image
+
 def generate_output_with_specific_colormap(pred, colormap_type='COLORMAP_HOT'):
-    gray_pred = np.array(pred*255/pred.max(), dtype = n.uint8)
+
+    gray_pred = np.array(pred*255/pred.max(), dtype = np.uint8)
     
     if colormap_type == 'COLORMAP_HOT':
         heatmap = cv2.applyColorMap(gray_pred, cv2.COLORMAP_HOT)
@@ -33,8 +38,6 @@ def generate_output_with_specific_colormap(pred, colormap_type='COLORMAP_HOT'):
 
     return heatmap
      
-
-
 
 def get_density_map_gaussian(im, points, adaptive_mode=False, fixed_value=15, fixed_values=None):
     density_map = np.zeros(im.shape[:2], dtype=np.float32)
@@ -203,9 +206,11 @@ def get_density_map_gaussian_old(im, points, adaptive_mode=0, fixed_value=15, wi
 
 def load_img(img_instance):
     if isinstance(img_instance, str):
-        img = cv2.cvtColor(cv2.imread(img_instance), cv2.COLOR_BGR2RGB)
-    else:
-        img = img_instance
+        img = cv2.imread(img_instance)
+    elif isinstance(img_instance, Image.Image):
+        img = np.asarray(img_instance)
+    
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = img / 255.0
     img[:, :, 0]=(img[:, :, 0] - 0.485) / 0.229
     img[:, :, 1]=(img[:, :, 1] - 0.456) / 0.224

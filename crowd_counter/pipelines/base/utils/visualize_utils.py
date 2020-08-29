@@ -26,4 +26,8 @@ def blend_heatmap(image_data, heatmap, alpha=0.5):
 
 
 def draw_heatmap_on_image(image, heatmap, alpha = 0.5):
-    return image + alpha*heatmap
+    return Image.blend(
+        Image.fromarray(image).convert("RGB"),
+        Image.fromarray(heatmap).convert("RGB"), 
+        alpha
+    )

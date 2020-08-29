@@ -12,6 +12,7 @@ C.VISUALIZE_TYPE = "Heatmap" # or "Points"
 C.MODEL.DETECTOR_TYPE = "human_detector"
 C.MODEL.PACKAGE = "yolo"
 C.MODEL.MODULE = "YoloModel"
+C.MODEL.TYPE = "crowd_counter"
 
 
 

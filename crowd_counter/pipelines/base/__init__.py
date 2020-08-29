@@ -5,4 +5,6 @@ from .capture_video import Capture
 from .inference_video import Predictor
 from .write_video import Writer
 from .video_pipeline import VideoPipeline
+from .capture_image import CaptureImage
+from .write_image import ImageWriter
 

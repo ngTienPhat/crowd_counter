@@ -1,6 +1,7 @@
 import sys
 from .pipeline import Pipeline 
 from crowd_counter.engines import EngineFactory
+from crowd_counter.engines.sanet import SA_Engine
 
 
 class Predictor(Pipeline):
@@ -16,8 +17,11 @@ class Predictor(Pipeline):
 
     def _create_engine(self, model_config):
         enigne_factory = EngineFactory(model_config)
-        engine = enigne_factory.get_instance("sa_net")
-    
+        engine = enigne_factory.get_instance("crowd_counter")
+
+        # engine = SA_Engine(weight_path = model_config['crowd_counter']['kwargs']['weight_path'])
+        return engine
+
     def map(self, data):
         frame = data['frame_data']
         bboxes, heatmap = self.engine.process(frame) 

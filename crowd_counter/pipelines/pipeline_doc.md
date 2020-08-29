@@ -13,5 +13,11 @@
 
 **Data passes through pipeline format**
 ```
-
+{   
+    ## Capture
+    "frame_data": np.array --> image/frame array data ,
+    "frame_id": string 05d of frame id,
+    
+    ## 
+}
 ```

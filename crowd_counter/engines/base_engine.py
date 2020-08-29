@@ -10,7 +10,7 @@ class BaseEngine(object):
     def __init__(self):
         self.logger = logging.getLogger(type(self).__name__)
 
-    def process(inputs, n_frame_skips=5, **kwargs):
+    def process(self, inputs, n_frame_skips=5, **kwargs):
         """ Main process function for Engine Class
         Args:
             
@@ -45,8 +45,10 @@ class BaseEngine(object):
 
         elif isinstance(frames, str):
             return Image.open(frames)
+
         elif isinstance(frames, np.ndarray):
             return Image.fromarray(frames)
+            
         return frames
 
     def process_video(self, inputs, n_frame=5):
