@@ -8,6 +8,7 @@ C.WORKING_DIR = "/Users/tienphat/Documents/HCMUS/Software_Design/Final_Project/c
 C.VISUALIZE_TYPE = "Heatmap" # or "Points"
 
 
+
 ## MODEL SETUP
 C.MODEL.DETECTOR_TYPE = "human_detector"
 C.MODEL.PACKAGE = "yolo"

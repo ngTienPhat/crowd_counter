@@ -1,7 +1,7 @@
-from .base import (
-    VideoPipeline,
-    Capture,
-    Predictor,
-    Annotator,
-    Writer,
-)
+# from .base import (
+#     BaseProcess,
+#     Capture,
+#     Predictor,
+#     Annotator,
+#     Writer,
+# )

@@ -1,7 +1,7 @@
 import sys
 
 from crowd_counter.pipelines.base import (
-    Capture, Annotator, Predictor, Writer, VideoPipeline, CaptureImage, ImageWriter
+    CaptureVideo, Annotator, Predictor, VideoWriter, CaptureImage, ImageWriter, BaseProcess
 )
 from crowd_counter.pipelines.config import C as cfg
 import os 
@@ -19,7 +19,7 @@ def create_copy_video_pipeline():
     writer = Writer(save_path = os.path.join(cfg.DATASET.DATA_PATH, cfg.DATASET.SAVE_PATH), fourcc='MP4V')
 
     # 2. Combine the above pipeline objects to create a pipeline
-    pipeline = VideoPipeline([capture, writer], name = "CopyPipeline")
+    pipeline = BaseProcess([capture, writer], name = "CopyPipeline")
     return pipeline
 
 
@@ -43,7 +43,7 @@ def inference_single_image_pipeline():
     predictor = Predictor(sanet_config)
     writer = ImageWriter(save_image)
 
-    runner = VideoPipeline([capture, predictor, writer], name="single image pipeline")
+    runner = BaseProcess([capture, predictor, writer], name="single image pipeline")
     return runner
 
 def inference_video_pipeline():
@@ -64,11 +64,11 @@ def inference_video_pipeline():
     predictor = Predictor(sanet_config)
     writer = Writer(save_path = save_video, fourcc = 'MP4V')
 
-    runner = VideoPipeline([capture, predictor, writer], name="count video pipeline")
+    runner = BaseProcess([capture, predictor, writer], name="count video pipeline")
     return runner
 
 def main():
-    config_file = "crowd_counter/pipelines/pipeline_configs/test_config.yaml"
+    config_file = "crowd_counter/configs/pipeline_configs/test_config.yaml"
     cfg.merge_from_file(config_file)
 
     # copy_pipeline = create_copy_video_pipeline()

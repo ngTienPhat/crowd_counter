@@ -6,15 +6,20 @@ import PIL.Image as Image
 from .pipeline import Pipeline
 from .utils import draw_heatmap_on_image
 
-class Writer(Pipeline):
-    def __init__(self, save_path, fps=30, fourcc='MJPG'):
+class VideoWriter(Pipeline):
+    def __init__(self, save_path = None, fps=30, fourcc='MP4V'):
         self.save_path = save_path
         self.fps = fps 
         self.fourcc = fourcc 
         self.writer = None
         super().__init__()
 
+    def set_save_path(self, save_path: str):
+        self.save_path = save_path
+
     def map(self, data):
+        assert self.save_path is not None, "save path has not been declared yet"
+
         frame = data['frame_data'] 
         h, w = frame.shape[:2]
         heatmap = data['frame_heatmap']

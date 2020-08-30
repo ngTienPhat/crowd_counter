@@ -74,7 +74,7 @@ class FileVideoCapture(object):
                 
                 self.queue.put(frame)
             else:
-                time.sleep(0.01)  # Rest for 1ms, we have a full queue
+                time.sleep(0.001)  # Rest for 1ms, we have a full queue
 
         self.cap.release()
 
@@ -89,7 +89,7 @@ class FileVideoCapture(object):
         # return True if there are still frames in the queue. If stream is not stopped, try to wait a moment
         tries = 0
         while self.queue.qsize() == 0 and not self.stopped and tries < 5:
-            time.sleep(0.1)
+            time.sleep(0.001)
             tries += 1
 
         return self.queue.qsize() > 0
