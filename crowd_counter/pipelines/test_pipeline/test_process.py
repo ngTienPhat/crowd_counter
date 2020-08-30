@@ -44,6 +44,7 @@ def test_video_process():
     )
 
     for vid in data_info['test_vid']:
+        print(vid)
         video_process.inference(
             video_path = osp.join(data_info['video_dir'], vid),
             save_path = osp.join(data_info['video_save_dir'], vid),

@@ -48,6 +48,13 @@ class ImageProcess(BaseProcess):
     def __update_pipeline(self):
         self.setup_pipeline(self.list_step)
 
+    def default_inference(self):
+        self.__update_pipeline()
+        assert self.pipeline is not None, "Pipeline has not been implemented yet"
+
+        if self.img_path is not None and self.save_path is not None:
+            self.run()
+
     def inference(self, list_img_paths=None, list_save_paths=None):
         '''
         Inference on a single or multiple images
@@ -58,10 +65,6 @@ class ImageProcess(BaseProcess):
         '''
         self.__update_pipeline()
         assert self.pipeline is not None, "Pipeline has not been implemented yet"
-        
-
-        if self.img_path is not None and self.save_path:
-            self.run()
 
         if list_img_paths is not None:
             assert list_save_paths is not None, "You have to pass save path"

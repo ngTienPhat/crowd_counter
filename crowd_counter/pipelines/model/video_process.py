@@ -31,7 +31,7 @@ class VideoProcess(BaseProcess):
 
     def set_predictor(self, predictor_config_path: str):
         for i in range(len(self.list_step)):
-            if isinstance(self.list_step[i], Predictor):
+            if isinstance(self.list_step[i], predictor_config_path):
                 self.list_step[i].create_engine(predictor_config_path)
                 break
     
@@ -46,6 +46,12 @@ class VideoProcess(BaseProcess):
     def set_save_path(self, save_path: str):
         self.list_step[-1].set_save_path(save_path)
 
+    def default_inference(self):
+        self.__update_pipeline()
+        assert self.pipeline is not None, "Pipeline has not been implemented yet"
+        
+        if self.vid_path is not None and self.save_path is not None:
+            self.run()
 
     def inference(self, video_path = None, save_path = None):
         '''
@@ -58,12 +64,12 @@ class VideoProcess(BaseProcess):
         self.__update_pipeline()
         assert self.pipeline is not None, "Pipeline has not been implemented yet"
         
-        if self.vid_path is not None and self.save_path is not None:
-            self.run()
         
         if video_path is not None and save_path is not None:
             self.load_video(video_path)
             self.set_save_path(save_path)
+
             self.__update_pipeline()
+            # print(self.list_step[-1].save_path)
             self.run()
 

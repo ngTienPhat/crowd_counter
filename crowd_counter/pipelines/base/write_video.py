@@ -14,8 +14,12 @@ class VideoWriter(Pipeline):
         self.writer = None
         super().__init__()
 
+    def reset_writer(self):
+        self.writer=None
+
     def set_save_path(self, save_path: str):
         self.save_path = save_path
+        self.reset_writer()
 
     def map(self, data):
         assert self.save_path is not None, "save path has not been declared yet"
