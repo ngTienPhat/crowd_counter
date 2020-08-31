@@ -1,9 +1,11 @@
 # MacOS dummy files
 .DS_Store
 .vscode
-# Dataset
-data
 
+# Dataset and output
+data
+output
+weight 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

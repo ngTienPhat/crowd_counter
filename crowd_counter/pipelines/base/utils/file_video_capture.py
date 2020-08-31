@@ -11,12 +11,12 @@ class FileVideoCapture(object):
     def __init__(self, src, transform=None, queue_size=128, name="FileVideoCapture", skip_frame=1):
         '''
         Args:
-
             src: video path
             transform: transform object to apply to a specific frame. None: won't do anything
             queue_size: max number of buffer to store all frames of the given video
             skip_frame: default = 1 (cap all frames)
         '''
+        
         self.cap = cv2.VideoCapture(src)
         if not self.cap.isOpened():
             raise IOError(f"Cannot open video {src}")
@@ -74,7 +74,7 @@ class FileVideoCapture(object):
                 
                 self.queue.put(frame)
             else:
-                time.sleep(0.01)  # Rest for 1ms, we have a full queue
+                time.sleep(0.001)  # Rest for 1ms, we have a full queue
 
         self.cap.release()
 
@@ -89,7 +89,7 @@ class FileVideoCapture(object):
         # return True if there are still frames in the queue. If stream is not stopped, try to wait a moment
         tries = 0
         while self.queue.qsize() == 0 and not self.stopped and tries < 5:
-            time.sleep(0.1)
+            time.sleep(0.001)
             tries += 1
 
         return self.queue.qsize() > 0

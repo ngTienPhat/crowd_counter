@@ -1,0 +1,14 @@
+{
+    "crowd_counter": 
+    {
+        "package": "crowd_counter.engines.sanet.sa_engine",
+        "module": "SA_Engine",
+        "args": [],
+        "kwargs": 
+        {
+            "weight_path": "weight/SANet_weight.hdf5"
+        }
+    }
+    
+}
+

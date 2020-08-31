@@ -12,8 +12,8 @@ class EngineFactory(object):
         Example:
             >>> config = {
             ...    "human_detector": {
-            ...        "package": "yolo",
-            ...        "module": "YoloModel",
+            ...        "package": "crowd_counter.s_dcnet.sdc_engine",
+            ...        "module": "SDC_Engine",
             ...        "args": ["/path/to/weight.pth"],
             ...        "kwargs": {},
             ...    },
@@ -37,7 +37,7 @@ class EngineFactory(object):
             self.module_dictionary[k] = module
 
     def get_instance(self, instance_name):
-        instance = self.module_dictionary(instance_name)
+        instance = self.module_dictionary.get(instance_name)
         if instance is None:
             logger.warning(f"Not found {instance}")
 
@@ -48,7 +48,7 @@ class EngineFactory(object):
         module = module_config["module"]
         Module = self._get_module_class(package, module)
 
-        if Model is None:
+        if Module is None:
             return None
 
         args = module_config.get("args", list())
@@ -70,9 +70,9 @@ class EngineFactory(object):
         >>> return `module_name`
         """
 
-	try:
-            package = importlib.import_module(module_name)
-            class_ = getattr(package, class_name)
+        try:
+            package = importlib.import_module(package_name)
+            class_ = getattr(package, module_name)
 
             return class_
         except ModuleNotFoundError:

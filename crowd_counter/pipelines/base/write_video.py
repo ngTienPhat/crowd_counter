@@ -1,20 +1,35 @@
 import cv2 
 import os
-from .pipeline import Pipeline
+import numpy as np
+import PIL.Image as Image
 
-class Writer(Pipeline):
-    def __init__(self, save_path, fps=30, fourcc='MJPG'):
+from .pipeline import Pipeline
+from .utils import draw_heatmap_on_image
+
+class VideoWriter(Pipeline):
+    def __init__(self, save_path = None, fps=30, fourcc='MP4V'):
         self.save_path = save_path
         self.fps = fps 
         self.fourcc = fourcc 
         self.writer = None
         super().__init__()
 
-    def map(self, data):
-        frame = data['frame_data'] 
+    def reset_writer(self):
+        self.writer=None
 
-        if self.writer is None:
-            h, w = frame.shape[:2]
+    def set_save_path(self, save_path: str):
+        self.save_path = save_path
+        self.reset_writer()
+
+    def map(self, data):
+        assert self.save_path is not None, "save path has not been declared yet"
+
+        frame = data['frame_data'] 
+        h, w = frame.shape[:2]
+        heatmap = data['frame_heatmap']
+        save_img = draw_heatmap_on_image(frame, heatmap, 0.6)
+
+        if self.writer is None:    
             self.writer = cv2.VideoWriter(
                 filename = self.save_path,
                 fourcc=cv2.VideoWriter_fourcc(*self.fourcc),
@@ -23,7 +38,7 @@ class Writer(Pipeline):
                 isColor=(frame.ndim == 3)
             )
 
-        self.writer.write(frame)
+        self.writer.write(np.asarray(save_img))
     
         return data  
     
