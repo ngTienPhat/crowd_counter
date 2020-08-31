@@ -32,7 +32,10 @@ def test_image_process():
 
     list_input_imgs = [osp.join(data_info['image_dir'], inp) for inp in data_info['test_img']]
     list_save_imgs = [osp.join(data_info['image_save_dir'], inp) for inp in data_info['test_img']]
-    image_process.inference(list_input_imgs, list_save_imgs)
+    image_process.inference(
+        list_img_paths = list_input_imgs, 
+        list_save_paths = list_save_imgs
+    )
 
 def test_video_process():
     # test_video1 =  data_info['test_vid'][0]
