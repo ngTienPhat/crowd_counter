@@ -43,7 +43,7 @@ class SA_Engine(BaseEngine):
 
     def __postprocess_prediction(self, pred, output_map):
         pred = np.squeeze(pred)
-        pred = generate_output_with_specific_colormap(pred, output_map)
+        # pred = generate_output_with_specific_colormap(pred, output_map)
 
         return pred
 
