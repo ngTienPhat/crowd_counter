@@ -70,6 +70,6 @@ class BaseEngine(object):
 
         Return: bboxes, heatmap
             - bboxes (list)
-            - heatmap (None or np.ndarray)
+            - heatmap (None or np.ndarray uint8)
         """
         raise NotImplementedError()
