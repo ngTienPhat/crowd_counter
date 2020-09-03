@@ -4,6 +4,8 @@ from .inference_video import Predictor
 from .write_video import VideoWriter 
 from tqdm import tqdm
 
+import logging
+
 class BaseProcess(object):
     def __init__(self, list_step=None, name="default video pipeline"):
         '''
@@ -18,6 +20,7 @@ class BaseProcess(object):
             self.setup_pipeline(list_step)
 
         self.name = name
+        self.logger = logging.getLogger(name)
     
     def setup_pipeline(self, list_step):
         self.list_step = list_step
@@ -39,4 +42,20 @@ class BaseProcess(object):
                 if isinstance(step, CaptureVideo) or isinstance(step, VideoWriter):
                     step.cleanup()
 
-            print(f"[{self.name}]: finish")
+            self.logger.info(f"[{self.name}]: finish")
+
+    def run_generator(self):
+        assert self.pipeline is not None, "pipeline has been not implemented yet"
+        try:
+            for idx, i in tqdm(enumerate(self.pipeline)):
+                yield idx
+        except StopIteration:
+            return
+        except KeyboardInterrupt:
+            return
+        finally:
+            for step in self.list_step:
+                if isinstance(step, CaptureVideo) or isinstance(step, VideoWriter):
+                    step.cleanup()
+
+            self.logger.info(f"[{self.name}]: finish")
