@@ -16,9 +16,11 @@ setup(
     description="Backend for final project of Software Design",
     author="Nguyen Tien Phat & Tran Vinh Hung",
     url="https://github.com/ngTienPhat/crowd_counter/",
-    packages=find_namespace_packages(exclude=["docs", "tests", "experiments"]),
+    packages=find_namespace_packages(
+        exclude=["docs", "tests", "experiments", "scripts"]
+    ),
     include_package_data=True,
     zip_safe=True,
     python_requires=">=3.6",
-    install_requires=["numpy", "Pillow"],
+    install_requires=["numpy", "Pillow", "opencv-python", "tqdm", "yacs"],
 )
