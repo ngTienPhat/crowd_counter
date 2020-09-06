@@ -15,9 +15,9 @@ def create_image_pipeline(image_path=None, save_path=None, predictor_config_path
     list_steps = [capture, predictor, writer]
     return list_steps
 
-def create_video_pipeline(video_path=None, save_path=None, predictor_config_path=None):
+def create_video_pipeline(video_path=None, save_path=None, predictor_config_path=None, fourcc="MP4V"):
     capture = CaptureVideo(video_path)
-    writer = VideoWriter(save_path)
+    writer = VideoWriter(save_path, fourcc=fourcc)
     predictor = Predictor(predictor_config_path)
     list_steps = [capture, predictor, writer]
     return list_steps
