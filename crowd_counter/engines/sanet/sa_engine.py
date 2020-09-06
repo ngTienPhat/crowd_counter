@@ -49,7 +49,7 @@ class SA_Engine(BaseEngine):
 
     def _process(self, frame, image_size = None, output_map='COLORMAP_HOT'):
         frame = self.__preprocess_input_image(frame, image_size)
-        pred = self.model(frame)        
+        pred = self.model.predict(frame)        
         pred = self.__postprocess_prediction(pred, output_map)
         
         boxes = None
