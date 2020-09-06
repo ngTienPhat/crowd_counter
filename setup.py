@@ -23,4 +23,11 @@ setup(
     zip_safe=True,
     python_requires=">=3.6",
     install_requires=["numpy", "Pillow", "opencv-python", "tqdm", "yacs"],
+    extras_require={
+        "sanet": [
+            "keras",
+            "git+https://www.github.com/keras-team/keras-contrib.git",
+            "scikit-image",
+        ]
+    },
 )
