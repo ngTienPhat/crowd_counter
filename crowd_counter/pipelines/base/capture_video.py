@@ -47,6 +47,7 @@ class CaptureVideo(Pipeline):
                 # "frame_num" : self.frame_count,
                 "frame_id" : f"{self.frame_count:05d}",
                 "frame_data": image,
+                "fps": self.fps,
             }
             
             self.frame_count += self.skip_frame

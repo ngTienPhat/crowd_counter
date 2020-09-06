@@ -29,11 +29,15 @@ class VideoWriter(Pipeline):
         heatmap = data['frame_heatmap']
         save_img = draw_heatmap_on_image(frame, heatmap, 0.6)
 
+        fps = self.fps
+        if "fps" in data.keys():
+            fps = data['fps']
+
         if self.writer is None:    
             self.writer = cv2.VideoWriter(
                 filename = self.save_path,
                 fourcc=cv2.VideoWriter_fourcc(*self.fourcc),
-                fps=self.fps,
+                fps=fps,
                 frameSize=(w, h),
                 isColor=(frame.ndim == 3)
             )
