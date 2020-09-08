@@ -26,7 +26,7 @@ setup(
     extras_require={
         "sanet": [
             "keras",
-            "git+https://www.github.com/keras-team/keras-contrib.git",
+            # "git+https://www.github.com/keras-team/keras-contrib.git",
             "scikit-image",
         ]
     },

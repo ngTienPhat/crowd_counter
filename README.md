@@ -20,5 +20,13 @@ pip install -e .[sanet]
 List of current support:
 - sanet
 
+Note: For `sanet`, you will need to run this extra step for keras-contrib.
+(No support by PyPi).
+
+```
+pip install git+https://www.github.com/keras-team/keras-contrib.git
+```
+
+
 # Extend tutorial
 Check file `docs/engine_document.md` to understand our Engine Interface.
