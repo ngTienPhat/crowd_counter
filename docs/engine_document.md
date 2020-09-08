@@ -41,3 +41,33 @@ bboxes = [
 ```
         - `heatmaps`: Numpy array or list of numpy array
 
+
+# Extend
+
+To extend model, you need to override the `_process` function.
+
+Docstring of `_process` function:
+```
+Process for single image file 
+Args:
+    frame (pillow image)
+
+Return: bboxes, heatmap
+    - bboxes (list)
+    - heatmap (None or np.ndarray uint8)
+```
+
+Example for dummy engine that just generate random heatmap and empty boxes:
+``` python
+from crowd_counter.engines.base_engine import BaseEngine
+import numpy as np
+
+class DummyEngine(BaseEngine):
+    def _process(self, image):
+        img_np = np.array(image)
+        img_size = img_np.shape[:2]
+
+        heatmap = np.random.randint(low=0, high=255, size=img_size, dtype=np.uint8)
+        return [], heatmap
+```
+
