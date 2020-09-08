@@ -99,3 +99,6 @@ class FileVideoCapture(object):
         self.stopped = True
         # wait until stream resources are released (producer thread might be still grabbing frame)
         self.thread.join()
+
+    def get_num_frame(self):
+        return self.cap.get(cv2.CAP_PROP_FRAME_COUNT)

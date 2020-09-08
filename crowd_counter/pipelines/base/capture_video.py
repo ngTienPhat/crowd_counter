@@ -2,6 +2,9 @@ import cv2
 from .pipeline import Pipeline
 from .utils.file_video_capture import FileVideoCapture
 
+import logging
+logger = logging.getLogger(__name__)
+
 class CaptureVideo(Pipeline):
     '''
     Pipeline to capture video frames 
@@ -27,12 +30,14 @@ class CaptureVideo(Pipeline):
 
 
     def setup(self, video_path: str):
+        logger.info("Setup....")
         self.cap = FileVideoCapture(src = video_path, skip_frame = self.skip_frame)
         self.fps = int(self.cap.get(cv2.CAP_PROP_FPS)) # get current video fps
         self.frame_size = (int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)), 
                             int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))) # frame shape
         self.frame_count = 0 # use to label frame id
         self.start_capturing()
+        logger.info("Finish setup")
 
     def generator(self):
         """Yield captured frames and pass to next pipeline step"""
@@ -47,6 +52,7 @@ class CaptureVideo(Pipeline):
                 # "frame_num" : self.frame_count,
                 "frame_id" : f"{self.frame_count:05d}",
                 "frame_data": image,
+                "fps": self.fps,
             }
             
             self.frame_count += self.skip_frame
@@ -58,3 +64,8 @@ class CaptureVideo(Pipeline):
         """Terminate video capture"""
         self.cap.stop()
 
+    def get(self, cv2_prop):
+        return self.cap.get(cv2_prop)
+
+    def get_num_frame(self):
+        return self.cap.get(cv2.CAP_PROP_FRAME_COUNT) / self.skip_frame

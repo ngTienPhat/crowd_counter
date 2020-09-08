@@ -9,7 +9,7 @@ MODEL:
 DATASET:
   TRAIN: "train_crowd"
   TEST: "test_crowd"
-  DATA_PATH: "/Users/tienphat/Documents/HCMUS/Software_Design/Final_Project/crowd_counter/data"
+  DATA_PATH: "data"
   TEST_VIDEO: "input/video1.mp4"
   SAVE_PATH: "output/video1.mp4"
 
